@@ -10,10 +10,7 @@ import { LOADING_BG_PHOTOS } from "@/lib/loading-bg-photos"
 import { anastasiaScript } from "@/lib/fonts"
 
 const canonicalUrl = canonicalSiteUrl
-const desktopHero = siteConfig.linkPreviewImage
-const mobileHero = siteConfig.linkPreviewImage
-const eventImageUrl = `${canonicalUrl}${desktopHero}`
-const OG_IMAGE_FALLBACK = `${canonicalUrl}${desktopHero}`
+const OG_IMAGE_FALLBACK = `${canonicalUrl}${siteConfig.linkPreviewImage}`
 
 const coupleNames = `${siteConfig.couple.groomNickname} & ${siteConfig.couple.brideNickname}`
 const eventTitle = `${coupleNames} - Wedding Invitation`
@@ -132,14 +129,6 @@ export const metadata: Metadata = {
         type: "image/jpeg",
         alt: `${coupleNames} Wedding Invitation - ${siteConfig.wedding.date}`,
       },
-      {
-        url: OG_IMAGE_FALLBACK,
-        secureUrl: OG_IMAGE_FALLBACK,
-        width: 1200,
-        height: 630,
-        type: "image/png",
-        alt: `${coupleNames} Wedding Invitation - ${siteConfig.wedding.date}`,
-      },
     ],
   },
   twitter: {
@@ -147,7 +136,7 @@ export const metadata: Metadata = {
     title: `${coupleNames} Wedding Invitation`,
     description:
       `You're invited to the wedding of ${siteConfig.couple.groomNickname} & ${siteConfig.couple.brideNickname} on ${siteConfig.wedding.date}. RSVP, explore their story, and get all the details for the big day! #${siteConfig.couple.groomNickname}And${siteConfig.couple.brideNickname}SayIDo`,
-    images: [OG_IMAGE_FALLBACK, eventImageUrl ],
+    images: [OG_IMAGE_FALLBACK],
     creator: `@${siteConfig.couple.groomNickname}And${siteConfig.couple.brideNickname}`,
     site: `@${siteConfig.couple.groomNickname}And${siteConfig.couple.brideNickname}`,
   },
@@ -213,8 +202,6 @@ export default function RootLayout({
             {...(index === 0 ? { fetchPriority: "high" as const } : {})}
           />
         ))}
-        <link rel="preload" as="image" href={mobileHero} media="(max-width: 767px)" />
-        <link rel="preload" as="image" href={desktopHero} media="(min-width: 768px)" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body
